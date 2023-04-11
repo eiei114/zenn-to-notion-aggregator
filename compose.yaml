@@ -1,0 +1,12 @@
+version: '3'
+services:
+  zenn-article-aggregator:
+    restart: always
+    build: .
+    container_name: 'zenn-article-aggregator'
+    working_dir: '/root/'
+    tty: true
+    env_file:
+      - opt/.env
+    volumes:
+      - ./opt:/root/opt

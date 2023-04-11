@@ -1,0 +1,29 @@
+name: Aggregator Zenn Article
+
+on:
+  schedule:
+    # 一日ごとに実行
+    - cron: "0 0 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  run-docker-compose:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    env:
+      MIDRA_LAB_NOTION_API: ${{ secrets.MIDRA_LAB_NOTION_API }}
+      NOTION_DATABASE_URL: ${{ secrets.NOTION_DATABASE_URL }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3.3.0
+      - name: create env file
+        run: |
+          touch opt/.env
+          echo "MIDRA_LAB_NOTION_API=${MIDRA_LAB_NOTION_API}" >> opt/.env
+          echo "NOTION_DATABASE_URL=${NOTION_DATABASE_URL}" >> opt/.env
+      - name: Build and run Docker Compose
+        run: |
+          docker-compose up -d --build
+      - name: Action run python
+        run: |
+          docker compose exec zenn-article-aggregator python opt/main.py
