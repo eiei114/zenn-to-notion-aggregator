@@ -48,7 +48,7 @@ RUN CHROME_DRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_R
 
 RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
-RUN python -m pip install selenium==4.8.3
-RUN python -m pip install notion-client==2.0.0
-RUN python -m pip install beautifulsoup4==4.12.2
+RUN python -m pip install selenium
+RUN python -m pip install notion-client
+RUN python -m pip install beautifulsoup4
 RUN python -m pip install python-dotenv
