@@ -17,6 +17,8 @@ if __name__ == "__main__":
     options = Options()
     options.add_argument('--headless')
     options.add_argument('--log-level=3')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
     driver = webdriver.Chrome(options=options)
 
     zenn_scraper = ZennScraper(publication_url)
