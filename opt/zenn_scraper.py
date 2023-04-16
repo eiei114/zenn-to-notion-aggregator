@@ -19,6 +19,9 @@ class ZennScraper:
             name = article.find('div', class_='ArticleCard_userName__1q_wZ').text
             self.articles.append({'title': title, 'url': url, 'name': name})
 
+    def is_articles_empty(self):
+        return len(self.articles) == 0
+
     def get_article_details(self, driver, article):
         driver.get(article['url'])
 
