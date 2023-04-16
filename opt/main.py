@@ -26,7 +26,6 @@ if __name__ == "__main__":
     zenn_scraper.get_articles(driver)
 
     if zenn_scraper.is_articles_empty():
-        print("No articles found, stopping the program.")
         driver.quit()
         sys.exit()
 
