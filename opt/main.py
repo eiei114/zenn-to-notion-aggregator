@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import os
+import sys
 
 from zenn_scraper import ZennScraper
 from notion_manager import NotionManager
@@ -23,6 +24,11 @@ if __name__ == "__main__":
 
     zenn_scraper = ZennScraper(publication_url)
     zenn_scraper.get_articles(driver)
+
+    if zenn_scraper.is_articles_empty():
+        print("No articles found, stopping the program.")
+        driver.quit()
+        sys.exit()
 
     notion_manager = NotionManager(notion_api_key, notion_database_id)
     notion_manager.delete_all_pages()
