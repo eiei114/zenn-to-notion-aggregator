@@ -1,3 +1,5 @@
+from concurrent.futures import ThreadPoolExecutor
+
 from notion_client import Client
 
 
@@ -25,7 +27,11 @@ class NotionManager:
                 notion_tags.append({"name": tag})
         return notion_tags
 
+    def delete_page(self,page_id):
+        self.notion.pages.update(page_id=page_id, archived=True)
+
     def delete_all_pages(self):
         pages = self.notion.databases.query(database_id=self.database_id)
-        for page in pages['results']:
-            self.notion.pages.update(page_id=page['id'], archived=True)
+        with ThreadPoolExecutor() as executor:
+            # ページを並列で削除する
+            [executor.submit(self.delete_page, page['id']) for page in pages['results']]
