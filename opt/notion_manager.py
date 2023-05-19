@@ -8,16 +8,14 @@ class NotionManager:
         self.notion = Client(auth=api_key)
         self.database_id = database_id
 
-    def add_article(self, title, url, tags, name, date):
+    def add_article(self, title, url, tags, date):
         new_page = {
             "Title": {"title": [{"text": {"content": title}}]},
             "Tags": {"multi_select": self.get_tags_and_remove_default_tag(tags)},
             "Link": {"url": url},
-            "Author": {"rich_text": [{"text": {"content": name}}]},
             "Date": {"date": {"start": date}}
         }
         self.notion.pages.create(parent={"database_id": self.database_id}, properties=new_page)
-
 
     # Get the list of tags with zenn's default tag removed from tags
     def get_tags_and_remove_default_tag(self, tags) -> list:
