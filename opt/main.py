@@ -13,7 +13,7 @@ if __name__ == "__main__":
     notion_api_key = os.environ["MIDRA_LAB_NOTION_API"]
     notion_database_id = os.environ["NOTION_DATABASE_URL"]
 
-    publication_url = "https://zenn.dev/p/midra_lab"
+    publication_url = "https://zenn.dev/keisuke114"
 
     options = Options()
     options.add_argument('--headless')
@@ -34,6 +34,6 @@ if __name__ == "__main__":
 
     for article in zenn_scraper.articles:
         details = zenn_scraper.get_article_details(driver, article)
-        notion_manager.add_article(article['title'], article['url'], details['tags'], article['name'], details['date'])
+        notion_manager.add_article(article['title'], article['url'], details['tags'], details['date'])
 
     driver.quit()

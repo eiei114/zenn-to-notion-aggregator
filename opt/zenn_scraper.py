@@ -16,8 +16,8 @@ class ZennScraper:
         for article in articles:
             title = article.find('h3', class_='ArticleCard_title__UnBHE').text
             url = "https://zenn.dev" + article.find('a', class_='ArticleCard_mainLink__X2TOE')['href']
-            name = article.find('div', class_='ArticleCard_userName__1q_wZ').text
-            self.articles.append({'title': title, 'url': url, 'name': name})
+            self.articles.append({'title': title, 'url': url})
+            print(title)
 
     def is_articles_empty(self):
         return len(self.articles) == 0
